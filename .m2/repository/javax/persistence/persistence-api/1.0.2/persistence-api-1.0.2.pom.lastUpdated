@@ -1,0 +1,5 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Wed Feb 15 16:01:17 ICT 2023
+@default-central-https\://repo.maven.apache.org/maven2/.lastUpdated=1676445280560
+https\://repo.maven.apache.org/maven2/.error=Could not transfer artifact javax.persistence\:persistence-api\:pom\:1.0.2 from/to central (https\://repo.maven.apache.org/maven2)\: Remote host terminated the handshake
+https\://repo1.maven.org/maven2/.lastUpdated=1676451677766

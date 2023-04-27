@@ -1,0 +1,4 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Wed Feb 15 15:38:07 ICT 2023
+@default-central-https\://repo.maven.apache.org/maven2/.lastUpdated=1676450287800
+https\://repo.maven.apache.org/maven2/.error=Could not transfer artifact com.microsoft.sqlserver\:mssql-jdbc\:\:11.2.3.jre17 from/to central (https\://repo.maven.apache.org/maven2)\: Remote host terminated the handshake

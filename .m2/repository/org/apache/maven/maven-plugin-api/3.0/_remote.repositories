@@ -1,0 +1,6 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Fri Feb 17 14:33:03 ICT 2023
+maven-plugin-api-3.0.jar>central=
+maven-plugin-api-3.0.jar>centralhttps=
+maven-plugin-api-3.0.pom>central=
+maven-plugin-api-3.0.pom>centralhttps=

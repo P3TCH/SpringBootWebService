@@ -1,0 +1,5 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Wed Feb 15 16:08:04 ICT 2023
+@default-central-https\://repo.maven.apache.org/maven2/.lastUpdated=1676445286800
+https\://repo.maven.apache.org/maven2/.error=Could not transfer artifact org.projectlombok\:lombok\:jar\:sources\:1.18.24 from/to central (https\://repo.maven.apache.org/maven2)\: Remote host terminated the handshake
+https\://repo1.maven.org/maven2/.lastUpdated=1676452084278

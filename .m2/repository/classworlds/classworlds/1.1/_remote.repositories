@@ -1,0 +1,6 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Fri Feb 17 14:27:53 ICT 2023
+classworlds-1.1.jar>central=
+classworlds-1.1.jar>centralhttps=
+classworlds-1.1.pom>central=
+classworlds-1.1.pom>centralhttps=

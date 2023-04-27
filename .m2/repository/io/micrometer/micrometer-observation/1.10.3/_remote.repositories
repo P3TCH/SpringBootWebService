@@ -1,0 +1,7 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Wed Feb 15 15:57:10 ICT 2023
+micrometer-observation-1.10.3.jar>centralhttps=
+micrometer-observation-1.10.3-sources.jar>central=
+micrometer-observation-1.10.3.pom>central=
+micrometer-observation-1.10.3.jar>central=
+micrometer-observation-1.10.3.pom>centralhttps=

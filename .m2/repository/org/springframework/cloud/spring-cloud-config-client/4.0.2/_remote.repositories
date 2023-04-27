@@ -1,0 +1,5 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Tue Apr 25 22:18:47 ICT 2023
+spring-cloud-config-client-4.0.2-sources.jar>centralhttps=
+spring-cloud-config-client-4.0.2.jar>centralhttps=
+spring-cloud-config-client-4.0.2.pom>centralhttps=

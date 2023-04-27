@@ -1,0 +1,4 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Wed Feb 15 14:29:39 ICT 2023
+@default-central-https\://repo.maven.apache.org/maven2/.lastUpdated=1676446179246
+https\://repo.maven.apache.org/maven2/.error=Could not transfer artifact org.bouncycastle\:bcprov-jdk15on\:jar\:sources\:1.58 from/to central (https\://repo.maven.apache.org/maven2)\: Remote host terminated the handshake
