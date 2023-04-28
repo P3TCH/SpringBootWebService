@@ -10,9 +10,6 @@ import com.example.warehouse.domain.ProductOrder;
 
 @Repository
 public interface ProductOrderRepository extends JpaRepository<ProductOrder, Integer>{
-	
-	boolean ture = true;
-
-	@Query(value = "SELECT * FROM productorder WHERE productionorder = ?1", nativeQuery = ture)
+	@Query(value = "SELECT * FROM productorder WHERE productionorder = ?1", nativeQuery = true)
 	List<ProductOrder> findByProductOrder(int po_id);
 }

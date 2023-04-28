@@ -16,7 +16,6 @@ public class WarehouseController {
 		private String materialnumber;
 		private String materialdescription;
 		private String quantity;
-
 		public String getMaterialnumber() {
 			return materialnumber;
 		}
