@@ -2,14 +2,19 @@ package com.example.warehouse.controller;
 
 import java.util.List;
 
+import com.example.warehouse.broker.TopicProducer;
 import com.example.warehouse.domain.MaterialWithdrawal;
+import com.example.warehouse.domain.ProductOrder;
 import com.google.gson.Gson;
+import lombok.RequiredArgsConstructor;
+import org.apache.kafka.clients.producer.Producer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.example.warehouse.repository.MaterialWithdrawalRepository;
 
 @RestController
 @RequestMapping("/WareHouse")
+@RequiredArgsConstructor
 public class WarehouseController {
 
 	public static class material_list{
@@ -113,6 +118,9 @@ public class WarehouseController {
 	@Autowired
 	private MaterialWithdrawalRepository materialWithdrawalRepository;
 
+	//kafka
+	private final TopicProducer topicProducer;
+
 	@PostMapping(path = "/addMaterialWithdrawal")
     public @ResponseBody String addNewMaterialWithdrawal(@RequestBody String data) {
         Gson gson = new Gson();
@@ -133,23 +141,39 @@ public class WarehouseController {
 			materialWithdrawalRepository.save(materialWithdrawal);
 		}
 
-        return "Saved list to ProductList";
+		//kafka
+		topicProducer.send("Saved " + materialSlip.getMateriallistLength() + " material to ProductionOrder " + materialSlip.getProductionorder() + "!");
+
+        return "Saved " + materialSlip.getMateriallistLength() + " material to ProductionOrder " + materialSlip.getProductionorder() + "!";
     }
 	
 	@GetMapping("/allMaterialWithdrawal")
 	public @ResponseBody List<MaterialWithdrawal> getAllUser(){
-		return materialWithdrawalRepository.findAll();
+		List <MaterialWithdrawal> materialWithdrawalList = materialWithdrawalRepository.findAll();
+		//Change to String
+		String materialWithdrawal = new Gson().toJson(materialWithdrawalList);
+		//Send to Kafka
+		topicProducer.send(materialWithdrawal);
+
+		return materialWithdrawalList;
 	}
 
 	@PostMapping("/ChangeStatus")
 	public @ResponseBody String changeStatus(@RequestParam String productionorder, @RequestParam String status){
 		materialWithdrawalRepository.updateStatus(status, productionorder);
+		//kafka
+		topicProducer.send("Status Production Order " + productionorder + " has been changed to " + status + "!");
 		return "Status Production Order " + productionorder + " has been changed to " + status + "!";
 	}
 
 	@GetMapping("/getMaterialWithdrawalByProductionOrder")
 	public @ResponseBody List<MaterialWithdrawal> getMaterialWithdrawalByProductionOrder(@RequestParam String ID){
-		return materialWithdrawalRepository.findByProductOrder(ID);
+		List <MaterialWithdrawal> materialWithdrawalList = materialWithdrawalRepository.findByProductOrder(ID);
+		//Change to String
+		String materialWithdrawal = new Gson().toJson(materialWithdrawalList);
+		//Send to Kafka
+		topicProducer.send(materialWithdrawal);
+		return materialWithdrawalList;
 	}
 	
 }
