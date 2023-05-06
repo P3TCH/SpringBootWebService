@@ -72,21 +72,6 @@ public class ProductController {
 		return "Saved " + productOrderList.getProductListLength() + " New Production Order";
 	}
 
-	@PostMapping(path = "/addProductOrder")
-    public @ResponseBody String addNewPO(@RequestParam String productionorder, @RequestParam String orderdate, @RequestParam String materialnumber, @RequestParam String materialdescription, @RequestParam String quantity) {
-
-		ProductOrder ProductOrder = new ProductOrder();
-		ProductOrder.setProductionorder(productionorder);
-		ProductOrder.setOrderdate(orderdate);
-		ProductOrder.setMaterialnumber(materialnumber);
-		ProductOrder.setMaterialdescription(materialdescription);
-		ProductOrder.setQuantity(quantity);
-		ProductOrderRepository.save(ProductOrder);
-
-		topicProducer.send("Saved New Production Order");
-        return "Saved New Production Order";
-    }
-
 	@GetMapping("/allOrder")
 	public @ResponseBody List<ProductOrder> getAllUser(){
 		List <ProductOrder> productOrderList = ProductOrderRepository.findAll();
