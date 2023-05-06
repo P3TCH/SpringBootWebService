@@ -1,0 +1,175 @@
+workspace {
+    
+    !identifiers hierarchical
+    
+    model {
+        user = person "Production Controller"
+        
+       
+    
+        softwareSystem = softwareSystem "Product System"{
+        
+            tags "product system"
+            
+            webapp = container "Micro Service"{
+                tags "webapp"
+            }
+            
+
+            service1 = group "Production" {
+                service1Api = container "Production" {
+                    tags "Service 1" "Service API"
+                    
+                    webapp -> this "Call API Service to"
+                    
+                    po_controller = component "Production Controller" "add new production order list\nget all production order\n search order by product order number"
+                    po_service = component "Production Service" "addPoList()\n getAllUser()\n getByID()"
+                    po_entity = component "Production Entity" "production meta data"
+                    po_repo = component "Production Repository" "connection to database and excute"
+                    
+                    kafka_server = component "Kafka server" "send message to user"
+
+                    webapp -> po_controller
+                    
+                    po_controller -> po_service "call service function from"
+                    po_controller -> po_repo
+                    po_controller -> po_entity
+                    po_service -> po_repo "send service function to"
+                    po_repo -> po_entity
+                    po_service -> po_entity "read meta data from"
+                    
+                    po_service -> kafka_server "send data info to"
+                    
+                    
+                }
+                
+                po_data = container "Production Database" {
+                    tags "Service 1" "Database"
+                    service1Api -> this "Reads from and writes to"
+                }
+                
+                service1Api.po_repo -> po_data "send excution from service to"
+            }
+            
+
+            service2 = group "Warehouse" {
+                service2Api = container "Warehouse" {
+                    tags "Service 2" "Service API"
+                    
+                    webapp -> this "Call API Service to"
+                    
+                    wh_controller = component "MaterialWithdrawal Controller" "add new materialWithdrawal info\nchange withdrawal status\nget materialWithdrawal info\n search materalWithdrawal by id, get all material inventory\nsearch inventory by id\n add item, update item"
+                    wh_service = component "MaterialWithdrawal Service" "addNewMaterialWithdrawal()\ngetAllUser()\nchangeStatus()\ngetMaterialWithdrawalByProductionOrder()\ngetByNumber()\nupdateItem()"
+                    wh_repo = component "MaterialWithdrawal Repository" "warehouse meta data"
+                    wh_entity = component "MaterialWithdrawal Entity" "connection to database and excute"
+                    
+                    kafka_server = component "Kafka server" "send message to user"
+                    
+                    webapp -> wh_controller
+                    
+                    wh_controller -> wh_service "call service function from"
+                    wh_controller -> wh_repo
+                    wh_controller -> wh_entity
+                    wh_service -> wh_repo "send service function to"
+                    wh_service -> wh_entity
+                    wh_repo -> wh_entity "read meta data from"
+                    
+                    wh_service -> kafka_server "send data info to"
+                    
+                }
+                wh_data = container "Warehouse Database" {
+                    tags "Service 2" "Database"
+                    service2Api -> this "Reads from and writes to"
+                }
+                
+                service2Api.wh_repo -> wh_data "send excution from service to"
+            }
+            
+            user -> webapp "Production Controller send product info for Withdrawal Material to"
+            service1Api -> service2Api "Production list Material Withdrawal, and send data Material Withdrawal Info to warehouse"
+        }
+        
+        kafkaSystem = softwareSystem "Kafka System" {
+            tags "kafka system"
+        }
+        
+        
+        softwareSystem -> kafkaSystem "Send info data using"
+        kafkaSystem -> user "Sends infomation to" {
+            
+        }
+
+    }
+    
+    views {
+
+        systemContext softwareSystem "Context" {
+            include *
+            autolayout lr
+        }
+        
+        container softwareSystem "Containers_All" {
+            include *
+            autolayout
+        }
+        
+        container softwareSystem "Containers_Production_Service" {
+            include ->softwareSystem.service1->
+
+            autolayout
+        }
+
+        container softwareSystem "Containers_Warehouse_Service" {
+            include ->softwareSystem.service2->
+            autolayout
+        }
+        
+        component softwareSystem.service1Api "Production_Component" {
+             include softwareSystem.webapp softwareSystem.service1Api.po_controller softwareSystem.service1Api.po_service softwareSystem.service1Api.po_entity softwareSystem.service1Api.po_repo softwareSystem.service1Api.kafka_server softwareSystem.po_data
+             autolayout
+        }
+        
+        component softwareSystem.service2Api "Warehouse_Component" {
+            include softwareSystem.webapp softwareSystem.service2Api.wh_controller softwareSystem.service2Api.wh_service softwareSystem.service2Api.wh_repo softwareSystem.service2Api.wh_entity softwareSystem.service2Api.kafka_server softwareSystem.wh_data
+            autolayout
+        }
+        
+        
+        theme default
+
+        styles {
+            element "Person" {
+                shape Person
+                background #9aafc5
+                color #000000
+            }
+            element "Service API" {
+                shape hexagon
+                color #000000
+            }
+            element "Database" {
+                shape cylinder
+                color #000000
+            }
+            element "Service 1" {
+                background #91F0AE
+                color #000000
+            }
+            element "Service 2" {
+                background #EDF08C
+                color #000000
+            }
+            element "product system"{
+                background #c6e2ff
+                color #000000
+            }
+            element "webapp"{
+                background #f0f8ff
+                color #000000
+            }
+            
+        }
+
+    }
+
+}
